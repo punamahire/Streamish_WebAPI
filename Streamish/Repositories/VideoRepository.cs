@@ -196,17 +196,16 @@ namespace Streamish.Repositories
                                  c.Id AS CommentId, c.Message, c.UserProfileId AS CommentUserProfileId
 
                             FROM Video v
-                                JOIN Comment c ON v.Id = c.VideoId
+                                LEFT JOIN Comment c ON v.Id = c.VideoId
                            WHERE v.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
-                    List<Comment> comments = new List<Comment>();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         Video video = null;
                         while (reader.Read())
-                        {
+                        {                          
                             if (video == null)
                             {
                                 video = new Video()
@@ -217,18 +216,20 @@ namespace Streamish.Repositories
                                     DateCreated = DbUtils.GetDateTime(reader, "DateCreated"),
                                     Url = DbUtils.GetString(reader, "Url"),
                                     UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                                    Comments = comments
+                                    Comments = new List<Comment>()
                                 };
                             }
 
-                            Comment comment = new Comment()
+                            if (DbUtils.IsNotDbNull(reader, "CommentId"))
                             {
-                                Id = DbUtils.GetInt(reader, "CommentId"),
-                                Message = DbUtils.GetString(reader, "Message"),
-                                VideoId = DbUtils.GetInt(reader, "Id"),
-                                UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId")
-                            };
-                            video.Comments.Add(comment);
+                                video.Comments.Add(new Comment()
+                                {
+                                    Id = DbUtils.GetInt(reader, "CommentId"),
+                                    Message = DbUtils.GetString(reader, "Message"),
+                                    VideoId = DbUtils.GetInt(reader, "Id"),
+                                    UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId")
+                                });
+                            }
                         }
 
                         return video;
