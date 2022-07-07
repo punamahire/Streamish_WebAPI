@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Video from './Video';
 import { getAllVideos } from "../modules/videoManager";
 
 const VideoList = () => {
@@ -13,12 +14,14 @@ const VideoList = () => {
     }, []);
 
     return (
-        <div>
-            {videos.map(v =>
-                <div key={v.id}>{v.title}</div>
-            )}
+        <div className="container">
+            <div className="row justify-content-center">
+                {videos.map((video) => (
+                    <Video video={video} key={video.id} />
+                ))}
+            </div>
         </div>
     );
-}
+};
 
 export default VideoList;
