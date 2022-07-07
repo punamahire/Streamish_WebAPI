@@ -17,6 +17,11 @@ const Video = ({ video }) => {
                     <strong>{video.title}</strong>
                 </p>
                 <p>{video.description}</p>
+                <div>
+                    {video.comments && video.comments.map((comment) => (
+                        <p key={comment.id}>Comment Text: {comment.message} </p>
+                    ))}
+                </div>
             </CardBody>
         </Card>
     );
