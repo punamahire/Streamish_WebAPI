@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 
 const Video = ({ video }) => {
-
-    console.log(video);
-
     return (
         <Card className="mt-2">
             {video.userProfile &&
