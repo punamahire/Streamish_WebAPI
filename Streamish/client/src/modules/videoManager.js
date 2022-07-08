@@ -5,6 +5,14 @@ export const getAllVideos = () => {
         .then((res) => res.json())
 };
 
+// https://localhost:5001/api/Video/GetVideoAndComments?id=1
+export const getVideoAndComments = (id) => {
+    // return fetch(`${baseUrl}/${id}`).then((res) => res.json());
+
+    return fetch(baseUrl + '/getvideoandcomments?id=' + id)
+        .then((res) => res.json())
+};
+
 export const addVideo = (video) => {
     return fetch(baseUrl, {
         method: "POST",
