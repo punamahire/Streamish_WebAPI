@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Video from './Video';
+import VideoForm from './VideoForm';
 import { getAllVideos, searchAllVideos } from "../modules/videoManager";
 
 const VideoList = () => {
@@ -34,8 +35,7 @@ const VideoList = () => {
 
     return (
         <div className="container">
-            <br></br>
-            <div>
+            <div className="mb-5 mt-3">
                 <input className="justify-content-center" type="text"
                     name="search" id="search" placeholder="search videos"
                     onChange={(e) => handleSearchInput(e)} value={wordsToSearch}
@@ -44,6 +44,11 @@ const VideoList = () => {
                     onClick={() => searchVideos()}>Search</button>
             </div>
 
+            <div className="mb-5">
+                <VideoForm getVideos={getVideos} />
+            </div>
+
+            <h2>Videos</h2>
             <div className="row justify-content-center">
                 {videos && videos.map((video) => (
                     <Video video={video} key={video.id} />
