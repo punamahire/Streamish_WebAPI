@@ -18,10 +18,13 @@ GO
 
 CREATE TABLE [UserProfile] (
   [Id] INTEGER PRIMARY KEY IDENTITY NOT NULL,
-  [Name] VARCHAR(25) NOT NULL,
-  [Email] VARCHAR(255) NOT NULL,
-  [ImageUrl] VARCHAR(255) NULL,
-  [DateCreated] DATETIME NOT NULL
+  [FirebaseUserId] NVARCHAR(28) NOT NULL,
+  [Name] NVARCHAR(255) NOT NULL,
+  [Email] NVARCHAR(255) NOT NULL,
+  [ImageUrl] NVARCHAR(255) NULL,
+  [DateCreated] DATETiME NOT NULL,
+
+  CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
 )
 GO
 
@@ -62,11 +65,11 @@ GO
 
 SET IDENTITY_INSERT [UserProfile] ON
 INSERT INTO [UserProfile]
-    ([Id], [Name], [Email], [DateCreated], [ImageUrl])
+    ([Id], [FirebaseUserId], [Name], [Email], [DateCreated], [ImageUrl])
 VALUES
-    (1, 'Groucho', 'groucho@marx.com', SYSDATETIME(), NULL),
-    (2, 'Harpo', 'harpo@marx.com', SYSDATETIME(), NULL),
-    (3, 'Chico', 'chico@marx.com', SYSDATETIME(), NULL);
+    (1, 'NZG7wunbDgVVqni3s4G01rQuLyt2', 'Groucho', 'groucho@marx.com', SYSDATETIME(), NULL),
+    (2, 'msM0iTPj9OZu8VrQ78oXXAftUnu2', 'Harpo', 'harpo@marx.com', SYSDATETIME(), NULL),
+    (3, 'XvqOI5gogBhpSLIz0rGCbod4FPI3', 'Chico', 'chico@marx.com', SYSDATETIME(), NULL);
 SET IDENTITY_INSERT [UserProfile] OFF
 
 

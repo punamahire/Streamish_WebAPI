@@ -11,5 +11,6 @@ namespace Streamish.Repositories
         UserProfile GetById(int id);
         void Update(UserProfile userProfile);
         UserProfile GetUserProfileWithVideos(int id);
+        UserProfile GetByFirebaseUserId(string firebaseUserId);
     }
 }
